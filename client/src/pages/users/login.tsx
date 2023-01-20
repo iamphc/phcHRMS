@@ -1,17 +1,26 @@
 import React, { FC, useState } from 'react';
-import AcountLogin from './components/AcountLogin'
+import AccountLogin from './components/AccountLogin'
 import SmCodeLogin from './components/SmCodeLogin'
 import {Form, Input, Row, Col, Button} from 'antd'
 const FormItem = Form.Item
 import './css/login.less'
 import IconMap from '@/components/IconMap';
+import {useDispatch} from 'umi';
+const LOGIN_TYPE = { 'account': 0, 'smCode': 1 }
 
 const Login: FC = () => {
   const [form] = Form.useForm()
-  const [type, setType] = useState('acount')
-  const submitUserInfo = (data) => {}
-  const ComponentSelect = (props: any) => type === 'acount' ? <AcountLogin {...props} /> : <SmCodeLogin {...props} />
-  const toggleLoginType = () => setType(type === 'acount' ? 'smCode' : 'acount')
+  const [type, setType] = useState('account' as 'account' | 'smCode')
+  const dispatch = useDispatch()
+  const submitUserInfo = (data) => {
+    dispatch({
+      type: 'user/login',
+      payload: { ...data, type: LOGIN_TYPE[type] }
+    })
+    console.log(data)
+  }
+  const ComponentSelect = (props: any) => type === 'account' ? <AccountLogin {...props} /> : <SmCodeLogin {...props} />
+  const toggleLoginType = () => setType(type === 'account' ? 'smCode' : 'account')
 
   return (
     <div className="form">
@@ -22,14 +31,14 @@ const Login: FC = () => {
       <Form form={form} onFinish={submitUserInfo}>
         {ComponentSelect({form, FormItem, Input})}
         <Row>
-          <Button type="primary" className="login">登录</Button>
+          <Button type="primary" className="login" htmlType="submit">登录</Button>
         </Row>
         <Row className="bottom">
           <Col span={6}>
             忘记密码?
           </Col>
           <Col span={18} onClick={toggleLoginType} className="right">
-            {type === 'acount' ? '使用用户名和密码登录' : '使用短信验证码登录'}
+            {type === 'account' ? '使用短信验证码登录' : '使用用户名和密码登录'}
             {IconMap.arrRowRight}
           </Col>
         </Row>

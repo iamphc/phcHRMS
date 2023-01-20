@@ -37,7 +37,7 @@ class Http {
     const defaultOptions = {
       mode: 'cors',
       headers: {
-        Authorization: sessionStorage.get('token') || null
+        Authorization: sessionStorage.getItem('token') || null
       }
     }
     

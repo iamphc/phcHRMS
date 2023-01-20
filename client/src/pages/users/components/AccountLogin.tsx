@@ -5,7 +5,7 @@ import {LoginRules} from '@/utils/rules'
 const AcountLogin: FC = ({form, FormItem, Input}) => {
   return (
     <>
-      <FormItem name="username" rules={LoginRules.usernameRule}>
+      <FormItem name="accountName" rules={LoginRules.usernameRule}>
         <Input placeholder="请输入用户名" prefix={IconMap.userIcon} />
       </FormItem>
       <FormItem name="password" rules={LoginRules.passwordRule}>
