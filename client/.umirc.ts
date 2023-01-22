@@ -12,7 +12,8 @@ export default defineConfig({
   fastRefresh: {},
   alias: {
     utils: resolve(__dirname, './src/utils'),
-    apis: resolve(__dirname, './src/apis')
+    apis: resolve(__dirname, './src/apis'),
+    components: resolve(__dirname, './src/components')
   },
   proxy: {
     '/api': {

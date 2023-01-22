@@ -18,6 +18,7 @@ const judgeOkState = async res => {
     history.replace('/users/login')
     sessionStorage.clear()
   }
+  console.log(cloneRes)
   return res
 }
 

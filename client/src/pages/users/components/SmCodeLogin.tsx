@@ -46,10 +46,10 @@ const SmCodeLogin: FC = ({form, FormItem, Input}) => {
 
   return (
     <>
-      <FormItem name="mobile" rules={LoginRules.mobileRule}>
+      <FormItem name="mobile" rules={LoginRules.mobileRule} hasFeedback>
         <Input placeholder="请输入手机号" prefix={IconMap.mobileIcon} onChange={handleChange} />
       </FormItem>
-      <FormItem name="code" rules={LoginRules.codeRule}>
+      <FormItem name="code" rules={LoginRules.codeRule} hasFeedback>
         {/* 写法一 */}
         {/* <Input.Group compact>
           <Input placeholder="请输入验证码" prefix={IconMap.codeIcon} style={{width: 'calc(100% - 102px)'}} />
