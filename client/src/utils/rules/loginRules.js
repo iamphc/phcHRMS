@@ -44,7 +44,11 @@ const loginRules = {
       max: 6,
       message: "验证码长度不正确"
     }
-  ]
+  ],
+  passwordAgainRule: [{
+    required: true,
+    message: "请再次输入密码"
+  }]
 }
 
 export default loginRules

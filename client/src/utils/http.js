@@ -1,11 +1,11 @@
-import {qs} from 'qs'
+import qs from 'qs'
 import {message} from 'antd'
 import {history} from 'umi'
 const fetch = require('dva').fetch
 
 const checkStatus = res => {
   if (res.status >= 200 && res.status < 300) {
-    return res
+    return res 
   }
   message.error(`网络请求错误, ${res.status}`)
   throw new Error(res.statusText)
@@ -24,7 +24,7 @@ const judgeOkState = async res => {
 
 const handleError = err => {
   if (err instanceof TypeError) {
-    message.error('请求错误')
+    message.error('请求错误:' + JSON.stringify(err))
   }
   return {
     code: -1,
@@ -59,26 +59,24 @@ class Http {
       .catch(handleError)
   }
 
-  get (url, params = {}, option = {}) {
-    const options = Object.assign({method: 'GET', option})
-    Object.keys(options) && (url += '?' + qs.stringify(options))
-    options.body = JSON.stringify(params)
+  get (url, option = {}) {
+    const options = Object.assign({method: 'GET'}, option)
+    Object.keys(options) && (url += '?' + qs.stringify(option))
     return Http.staticFetch(url, options)
   }
   post (url, params = {}, option = {}) {
-    const options = Object.assign({method: 'POST', option})
+    const options = Object.assign({method: 'POST'}, option)
     options.body = JSON.stringify(params)
     return Http.staticFetch(url, options)
   }
   put (url, params = {}, option = {}) {
-    const options = Object.assign({method: 'PUT', option})
+    const options = Object.assign({method: 'PUT'}, option)
     options.body = JSON.stringify(params)
     return Http.staticFetch(url, options)
   }
   del (url, option = {}) {
-    const options = Object.assign({method: 'DELETE', option})
-    Object.keys(options) && (url += '?' + qs.stringify(options))
-    options.body = JSON.stringify(params)
+    const options = Object.assign({method: 'DELETE'}, option)
+    Object.keys(options) && (url += '?' + qs.stringify(option))
     return Http.staticFetch(url, options)
   }
 }

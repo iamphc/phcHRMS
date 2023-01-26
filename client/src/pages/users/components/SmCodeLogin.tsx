@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import {Button, ButtonProps, Row} from 'antd'
+import {Button, ButtonProps, Row, message} from 'antd'
 import IconMap from '@/components/IconMap'
 import '../css/SmCodeLogin.less'
 import {LoginRules} from '@/utils/rules'
 const MAX_LEFT_TIME = 60
+import Api from '@/apis'
 
 const SmCodeLogin: FC = ({form, FormItem, Input}) => {
   const [btnDisable, setBtnDisable] = useState(false as boolean)
@@ -12,6 +13,8 @@ const SmCodeLogin: FC = ({form, FormItem, Input}) => {
   const sendMsg = async () => {
     try {
       const res = await form.validateFields(['mobile'])
+      const {data, msg} = await Api.sendSmCode(res)
+      message.success(msg)
       setBtnDisable(true)
       setTimerStatus(false)
       runTime()

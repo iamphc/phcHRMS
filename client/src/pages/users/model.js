@@ -13,7 +13,7 @@ export default {
         message.error(msg)
         return
       }
-      sessionStorage.setItem('userProfile', JSON.stringify(data))
+      sessionStorage.setItem('userProfile', JSON.stringify(data))                                                   
     }
   }
 }

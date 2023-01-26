@@ -3,7 +3,8 @@ import {
   UserOutlined,
   LockOutlined,
   MobileOutlined,
-  CodeSandboxOutlined
+  CodeSandboxOutlined,
+  ArrowLeftOutlined
 } from '@ant-design/icons'
 import React from 'react'
 
@@ -12,5 +13,6 @@ export default {
   userIcon: <UserOutlined />,
   passwordIcon: <LockOutlined />,
   mobileIcon: <MobileOutlined />,
-  codeIcon: <CodeSandboxOutlined />
+  codeIcon: <CodeSandboxOutlined />,
+  arrRowLeft: <ArrowLeftOutlined />,
 }

@@ -10,9 +10,12 @@ const LOGIN_TYPE = { 'account': 0, 'smCode': 1 }
 
 type LoginType = 'account' | 'smCode'
 
-const Login: FC = () => {
+const Login: FC = ({history}) => {
+  if (['reset', undefined].includes(history.location.query.type))
+    history.replace('/users/login?type=account')
+  const {type: initType = 'account'} = history.location.query
   const [form] = Form.useForm()
-  const [type, setType] = useState('account' as LoginType)
+  const [type, setType] = useState(initType as LoginType)
   const dispatch = useDispatch()
   const loading = useSelector(state => state.loading)
   console.log(loading)
@@ -25,8 +28,14 @@ const Login: FC = () => {
       }
     })
   }
-  const ComponentSelect = (props: any) => type === 'account' ? <AccountLogin {...props} /> : <SmCodeLogin {...props} />
+  const ComponentSelect = (props: any) => {
+    switch (type) {
+      case 'account': return <AccountLogin {...props} />
+      case 'smCode': return <SmCodeLogin {...props} />
+    }
+  }
   const toggleLoginType = () => setType(type === 'account' ? 'smCode' : 'account')
+  const iForget = () => history.push(`/users/forgetPassword?type=smCode`)
 
   return (
     <div className="form">
@@ -40,7 +49,7 @@ const Login: FC = () => {
           <Button type="primary" className="login" htmlType="submit" loading={loading.effects['user/login']}>登录</Button>
         </Row>
         <Row className="bottom">
-          <Col span={6}>
+          <Col span={6} onClick={iForget}>
             忘记密码 ?
           </Col>
           <Col span={18} onClick={toggleLoginType} className="right">
